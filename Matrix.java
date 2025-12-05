@@ -50,7 +50,7 @@ public class Matrix {
             for (int j = 0; j < this.columns;j++) {
                 matVals += this.tbtMat[i][j] + " "; 
             }
-            matVals += " ]\n";
+            matVals += "]\n";
         }
         return matVals;
     }
