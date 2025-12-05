@@ -1,5 +1,5 @@
 public class Vector {
-    double[] comps;// stores components, and dimensions are dynamic
+    private double[] comps;// stores components, and dimensions are dynamic
 
     public Vector(double[] comps) {
 
@@ -40,6 +40,34 @@ public class Vector {
                 result[i] =  other.comps[i] * this.comps[i]; //mulitplies each index(component) by the component of the other
             }
             return Vector(result);
+    }
+
+    public double magnitude(Vector v){
+        double sum = 0;
+        for (double c: comps){
+            sum += c*c;
+        }
+        return Math.sqrt(sum);
+    }
+
+    public double direction(Vector v){
+        double direction = 0.0;
+
+        
+        return 0.0;
+    }
+
+    public Vector normalize(Vector v){//changes magnitude to one while keeping the direction the same
+        double mag = magnitude(v);
+        if (mag == 0) {
+        throw new ArithmeticException("Cannot normalize the zero vector");
+        } else {
+            double [] result = new double [v.comps.length]
+            for (double c: comps){
+                result[i] = v.comps[i] / mag;
+            }
+        }
+        return Vector(result);
     }
 
     // public Vector add(Vector other){
