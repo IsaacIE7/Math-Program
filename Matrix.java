@@ -43,6 +43,11 @@ public class Matrix {
     public int cols(){
         return cols;
     }
+
+    public Matrix scalarMultiply(double val){
+
+        return null;
+    }
     // public static Matrix create2x2Matrix(int r1c1, int r1c2, int r2c1, int r2c2){
     //     double [][] tbtMat = new double[2][2];
     //     tbtMat[0][0] = r1c1;
@@ -77,15 +82,23 @@ public class Matrix {
     //     }
     // }
 
-    // public String toString(){
-    //     String matVals = "";
-    //     for (int i = 0; i < this.rows; i++) {
-    //         matVals += "[ ";
-    //         for (int j = 0; j < this.columns;j++) {
-    //             matVals += this.tbtMat[i][j] + " "; 
-    //         }
-    //         matVals += "]\n";
-    //     }
-    //     return matVals;
-    // }
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < mat.length; i++){
+            sb.append("[");
+            for (int j = 0; j < mat[0].length; j++){
+                sb.append(mat[i][j]);
+                sb.append(" ");
+            }
+            sb.delete(rows - 2, rows - 1);
+            if (i == mat.length - 1){// need to change for efficiency, compiler would have to go through else everytime except one case instead of opposite
+                sb.append("]");
+            } else {
+                sb.append("]\n");
+            }
+        }
+
+        return sb.toString();
+    }
 }
