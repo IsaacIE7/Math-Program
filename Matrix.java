@@ -22,8 +22,8 @@ public class Matrix {
             }
         }
 
-        this.rows = mat[0].length;
-        this.cols = mat.length;
+        this.rows = mat.length;
+        this.cols = mat[0].length;
 
         this.mat = new double [rows][cols];
 
@@ -33,7 +33,7 @@ public class Matrix {
     }
 
     public Matrix(int rows, int columns){
-        mat = new double [rows][columns]; 
+        this.mat = new double [rows][columns]; 
     }
 
     public int rows(){
@@ -45,7 +45,28 @@ public class Matrix {
     }
 
     public Matrix scalarMultiply(double val){
+        Matrix result = new Matrix(rows, cols);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                result.mat[i][j] *= val;
+            }
+        }
+        return result;
+    }
 
+    public Vector matrixTimesVector(Vector v){
+        if (v.getDimension() != cols){
+            throw new IllegalArgumentException("Matrix columns and vector dimensions dont match");
+        }
+        double[] dim = new double[v.getDimension()];
+        Vector result = new Vector(dim);
+
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                
+            }
+        }
         return null;
     }
     // public static Matrix create2x2Matrix(int r1c1, int r1c2, int r2c1, int r2c2){
@@ -85,14 +106,18 @@ public class Matrix {
     public String toString(){
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < mat.length; i++){
+        for (int i = 0; i < rows; i++){
             sb.append("[");
-            for (int j = 0; j < mat[0].length; j++){
+            for (int j = 0; j < cols; j++){
+                if (mat[i][j] >= 0){
+                    sb.append(" ");
+                }
+                
                 sb.append(mat[i][j]);
                 sb.append(" ");
             }
-            sb.delete(rows - 2, rows - 1);
-            if (i == mat.length - 1){// need to change for efficiency, compiler would have to go through else everytime except one case instead of opposite
+            
+            if (i == rows){// need to change for efficiency, compiler would have to go through else everytime except one case instead of opposite
                 sb.append("]");
             } else {
                 sb.append("]\n");
