@@ -7,5 +7,10 @@ public class Main {
         Matrix m = new Matrix(matr);
         
         System.out.println(m);
+
+        Function1D f = x -> Math.pow(Math.E, x);
+        Function1D F = Calc.integral(f);
+        System.out.println(F.apply(0));
+
     }
 }
