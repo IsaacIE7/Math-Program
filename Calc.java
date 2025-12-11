@@ -1,10 +1,10 @@
 public class Calc {
-    private static final double dx = 1e-7;
-    private static final double dt = 1e-4;
+    private static final double dx = 1e-7, dt = 1e-7;
+ 
     
 
     public static Function1D derivative(Function1D f){
-        return x -> (f.apply(x + dx) - f.apply(x - dx))/(2 * dx);//central difference
+        return x -> (f.apply(x + dx) - f.apply(x - dx))/(2 * dx);//central difference for accuracy ex. |x| at x = 0
     }   
 
     //public static double defIntegral(Function1D f, double lbound){  
