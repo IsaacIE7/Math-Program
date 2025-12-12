@@ -7,5 +7,10 @@ public class Main {
         Matrix m = new Matrix(matr);
         
         //System.out.println(m);
+        Expression e = new Multiply(new Add(new Multiply(new Constant(5), new Variable()), new Constant(7)), new Multiply(new Constant(3), new Variable()));
+        System.out.println(e.sDerivative());
+        System.out.println(e.sDerivative().evaluate(1));
+        System.out.println(e);
+
     }
 }
