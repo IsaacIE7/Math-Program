@@ -1,5 +1,5 @@
 public class Constant implements Expression {
-    private double value; 
+    private final double value; 
 
     public Constant(double val){
         value = val;
