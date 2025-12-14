@@ -15,9 +15,25 @@ public class Add implements Expression {
                                                                 //This is called covariant return types.
     }
 
+    public Expression simplify(){
+        Expression sLeft = left.simplify(), sRight = right.simplify();
+        if (sLeft instanceof Constant && ((Constant)sLeft).getValue() == 0.0){//needed to cast sLeft to consant and use getValue to compare to a double
+            return sRight;
+        } 
+        if (sRight instanceof Constant && ((Constant)sRight).getValue() == 0.0){//needed to use instanceof not .equals(); .equals checks if the objects point to same memory
+            return sLeft;
+        }
+        if (sLeft instanceof Constant && sRight instanceof Constant){
+            double c1 = ((Constant)sLeft).getValue();
+            double c2 = ((Constant)sRight).getValue();
+            return new Constant(c1 + c2);
+        } 
+        return new Add(sLeft, sRight);
+    }
+
     public String toString(){
         // return ("(" + left.toString() + " + " +  right.toString() + ")");//uses expressions unique toString
-                return "" + left.toString() + " + " +  right.toString();//uses expressions unique toString
+                return left.toString() + " + " +  right.toString();//uses expressions unique toString
 
     }
 }

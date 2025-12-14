@@ -8,6 +8,10 @@ public class Variable implements Expression {
         return new Constant(1);
     }
 
+    public Expression simplify(){
+        return this;
+    }
+
     public String toString(){
         return "x";
     }

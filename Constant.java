@@ -4,6 +4,7 @@ public class Constant implements Expression {
     public Constant(double val){
         value = val;
     }
+    public double getValue() {return value;}
 
     @Override
     public double evaluate(double x){
@@ -14,7 +15,11 @@ public class Constant implements Expression {
        return new Constant(0);
     }
 
+    public Expression simplify(){
+        return this;
+    }
+
     public String toString(){
-        return "" + value;
+        return Double.toString(value);
     }
 }
