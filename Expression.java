@@ -11,4 +11,7 @@ Constant(3)  Variable
     double evaluate(double x);
     Expression sDerivative();//symbolic derivative
     String toString();
+    Expression add(Expression e);
+    Expression mulitiply(Expression e);
+    Expression power(int n);
 }
