@@ -17,9 +17,11 @@ public class Main {
         Function1D gp = Calc.derivative(gx);
         System.out.println("" + gx.apply(3));
 
-        Expression x = Parser.parse("x");
+        Expression x = Parser.parse("x^2");
         System.out.println(x);
         System.out.println(x.sDerivative());
+        System.out.println(x.sDerivative().simplify());
+
 
     }
 }

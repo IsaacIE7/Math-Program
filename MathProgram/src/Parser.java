@@ -7,7 +7,7 @@ public class Parser {
     public static Expression parse(String input){
         tokens = Tokenizer.tokenize(input);
         index = 0;
-        return parsePrimary();
+        return parsePower();
     }
 
     //hierarchy: (add, subtract) -> (multiply, divide) -> power ->  lone variable/constant
@@ -30,6 +30,30 @@ public class Parser {
     public static Expression parsePower(){//handles power
         if (index >= tokens.size()) {
             throw new IllegalArgumentException("Unexpected end of input");
+        }
+        Expression base = parsePrimary();
+        if (index == tokens.size()){
+            return base;
+        }
+        if (index < tokens.size() && tokens.get(index).equals("^")){
+            System.out.println("test36");
+            index++;
+            Expression expr = parsePower();
+            if (expr instanceof Constant){
+                System.out.println("test40"); // check if the exp is a constant
+                if (((Constant)expr).getValue() == (double)((int)((Constant)expr).getValue())){ // check if it is an integer
+                    int exp = (int)((Constant)expr).getValue();
+                    System.out.println("test42");
+                    index++;
+                    return new Power(base, exp);
+                } else {
+                    throw new IllegalArgumentException("Invalid exponent. Must be integer");
+                }
+            }
+        } 
+        if (!tokens.get(index).equals("^")){
+            System.out.println("test52");
+            return base;
         }
             throw new IllegalArgumentException("Unexpected token: " + tokens.get(index));
         }
