@@ -33,30 +33,26 @@ public class Parser {
         }
         Expression base = parsePrimary();
         if (index == tokens.size()){
+            System.out.println("test35");
             return base;
         }
         if (index < tokens.size() && tokens.get(index).equals("^")){
-            System.out.println("test36");
+            System.out.println("test39");
             index++;
             Expression expr = parsePower();
-            if (expr instanceof Constant){
-                System.out.println("test40"); // check if the exp is a constant
+            if (expr instanceof Constant){ // check if the exp is a constant
+                System.out.println("test43");
                 if (((Constant)expr).getValue() == (double)((int)((Constant)expr).getValue())){ // check if it is an integer
+                    System.out.println("test45");
                     int exp = (int)((Constant)expr).getValue();
-                    System.out.println("test42");
-                    index++;
                     return new Power(base, exp);
                 } else {
                     throw new IllegalArgumentException("Invalid exponent. Must be integer");
                 }
             }
         } 
-        if (!tokens.get(index).equals("^")){
-            System.out.println("test52");
-            return base;
-        }
-            throw new IllegalArgumentException("Unexpected token: " + tokens.get(index));
-        }
+        return base;
+    }
         //(3x + 2) pretokenized string
         //Array list has "(", "3", "x", "+", "2", ")" tokenized
 
