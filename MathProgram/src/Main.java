@@ -17,7 +17,8 @@ public class Main {
         Function1D gp = Calc.derivative(gx);
         System.out.println("" + gx.apply(3));
 
-        Expression x = Parser.parse("3");
+        Expression x = Parser.parse("x");
+        System.out.println(x);
         System.out.println(x.sDerivative());
 
     }

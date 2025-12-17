@@ -1,4 +1,3 @@
-package src.MathProgram.Tokenizer;
 import java.util.ArrayList;
 
 public class Tokenizer {
