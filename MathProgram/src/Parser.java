@@ -33,19 +33,20 @@ public class Parser {
         }
         Expression base = parsePrimary();
         if (index == tokens.size()){
-            System.out.println("test35");
             return base;
         }
         if (index < tokens.size() && tokens.get(index).equals("^")){
-            System.out.println("test39");
             index++;
             Expression expr = parsePower();
-            if (expr instanceof Constant){ // check if the exp is a constant
-                System.out.println("test43");
-                if (((Constant)expr).getValue() == (double)((int)((Constant)expr).getValue())){ // check if it is an integer
-                    System.out.println("test45");
-                    int exp = (int)((Constant)expr).getValue();
-                    return new Power(base, exp);
+            if (expr instanceof Constant constant){ // check if the exp is a constant
+                if (constant.getValue() == (double)((int)constant.getValue())){ // check if it is an integer
+                    int exp = (int)constant.getValue();
+                    // index++;
+                    Expression pow = new Power(base, exp);
+                    if (index < tokens.size() && tokens.get(index).equals("^")){
+                        throw new IllegalArgumentException("Invalid format. Cannot have exponent as exponent");
+                    }
+                    return pow;
                 } else {
                     throw new IllegalArgumentException("Invalid exponent. Must be integer");
                 }
