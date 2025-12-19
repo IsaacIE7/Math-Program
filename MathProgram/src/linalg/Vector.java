@@ -14,6 +14,14 @@ public class Vector {
         return comps.length;
     }
 
+    public double getAngleBetween(Vector other){
+        if (this.getDimension() != other.getDimension()){
+            throw new IllegalArgumentException("Must be same dimensions.");
+        }
+        double angle = this.dot(other) / this.magnitude() * other.magnitude();
+        return angle;
+    }
+
     public Vector scalarMultiply(double val) {
         double[] result = new double[comps.length];
         for (int i = 0; i < comps.length; i++) {

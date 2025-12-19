@@ -27,6 +27,15 @@ public class Main {
         // System.err.println(x.evaluate(2));
         // System.out.println(x.sDerivative());
         // System.out.println(x.sDerivative().simplify());
+        Expression t = new Tan(new Variable());
+        System.out.println(t);
+        System.out.println(t.sDerivative());
+        System.out.println(t.sDerivative().simplify());
+
+        Expression tt = t.multiply(new Variable().power(2));
+        System.out.println(tt);
+        System.out.println(tt.sDerivative());
+        System.out.println(tt.sDerivative().simplify());
 
 
 
