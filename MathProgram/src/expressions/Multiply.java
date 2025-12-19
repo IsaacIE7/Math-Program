@@ -1,20 +1,25 @@
+package expressions;
+
 public class Multiply implements Expression{
-    private Expression left, right;
+    private final Expression left, right;
 
     public Multiply(Expression left, Expression right){
         this.left = left;
         this.right = right;
     }
 
+    @Override
     public double evaluate(double x){
         return left.evaluate(x) * right.evaluate(x);
     }
 
+    @Override
     public Expression sDerivative(){
         return new Add( new Multiply(left.sDerivative(), right),new Multiply(left, right.sDerivative()) );
     }
 
-        public Expression simplify(){
+    @Override
+    public Expression simplify(){
         Expression sLeft = left.simplify(), sRight = right.simplify();
         if (sLeft instanceof Constant && ((Constant)sLeft).getValue() == 0.0){//needed to cast sLeft to consant and use getValue to compare to a double
             return new Constant(0);
@@ -36,6 +41,7 @@ public class Multiply implements Expression{
         return new Multiply(sLeft, sRight);
     }
 
+    @Override
     public String toString(){
         if (left instanceof Constant && right instanceof Variable){//instanceof operator checks if an obj is an instance of a class; it is not a method
             return "" + left.toString() + right.toString();

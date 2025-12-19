@@ -1,7 +1,9 @@
+package linalg;
+
 import java.util.Arrays;
 
 public class Vector {
-    private double[] comps;// stores components, and dimensions are dynamic
+    private final double[] comps;// stores components, and dimensions are dynamic
 
     public Vector(double[] comps) {
         // defensive copy so original array can't modify future vector
@@ -72,6 +74,7 @@ public class Vector {
         }
     }
 
+    @Override
     public String toString() {
         return Arrays.toString(comps);
     }

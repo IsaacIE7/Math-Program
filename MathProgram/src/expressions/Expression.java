@@ -1,3 +1,5 @@
+package expressions;
+
 public interface Expression {//Tree structure for expressions; uses nodes.
 /*      Looks like:
               Add

@@ -1,3 +1,5 @@
+package expressions;
+
 public class Cos implements Expression {
     Expression inner;
 

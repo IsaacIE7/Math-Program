@@ -1,6 +1,8 @@
+package expressions;
+
 public class Divide implements Expression{
-    private Expression left;
-    private Expression right;
+    private final Expression left;
+    private final Expression right;
 
     public Divide(Expression left, Expression right){
         this.left = left;
@@ -17,6 +19,7 @@ public class Divide implements Expression{
         return new Divide(new Add(new Multiply(left.sDerivative(), right), new Multiply(left, right.sDerivative())), new Power(right, 2));
     }
 
+    @Override
     public Expression simplify(){
         Expression sLeft = left.simplify(), sRight = right.simplify();
         if (sRight instanceof Constant && ((Constant)sRight).getValue() == 0.0) {
@@ -36,6 +39,7 @@ public class Divide implements Expression{
         return new Divide(sLeft, sRight);
     }
 
+    @Override
     public String toString(){
         return "(" + left.toString() + "/" + right.toString() + ")";
     }

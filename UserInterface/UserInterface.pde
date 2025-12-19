@@ -12,7 +12,7 @@ void setup(){
 }
 
 void draw(){
-  background(120,120,120);
+  background(90,90,220);
   
   // Input box
   fill(255);

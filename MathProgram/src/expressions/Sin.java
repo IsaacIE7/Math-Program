@@ -1,3 +1,5 @@
+package expressions;
+
 public class Sin implements Expression {
     Expression inner;
 

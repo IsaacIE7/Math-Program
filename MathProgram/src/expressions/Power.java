@@ -1,23 +1,26 @@
+package expressions;
 
-
-public class Power implements Expression{     
+public class Power implements Expression{
     //limited to integer exponents and chain rule for derivative; still need to add const^x and its deriv rule
-    private int exp;
-    private Expression base;
+    private final int exp;
+    private final Expression base;
         
     public Power(Expression b, int exp){
         base = b;
         this.exp = exp;
     }
 
+    @Override
     public double evaluate(double x){
         return Math.pow(base.evaluate(x), exp);
     }
 
+    @Override
     public Expression sDerivative(){
         return new Multiply(base.sDerivative(), new Multiply(new Constant(exp), new Power(base, exp - 1)));
     }
 
+    @Override
     public Expression simplify(){
         Expression simplifiedBase = base.simplify();
         if (exp == 0) return new Constant(1);
@@ -31,6 +34,7 @@ public class Power implements Expression{
 
     }
 
+    @Override
     public String toString(){
         //return exp != 1 ? "" + (base.sDerivative().toString().equals(new Constant(1).toString())? "(" + base + ")" + "^" + exp : "("  +base + ")" +  "^" + exp + " * (" + base.sDerivative() + ")") : "" + base;// should probably just put in if, readability
         return "(" + base.toString() + ")" + "^" + exp;

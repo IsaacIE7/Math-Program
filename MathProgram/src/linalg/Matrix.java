@@ -1,4 +1,7 @@
+package linalg;
+
 import java.util.*;
+
 public class Matrix {
     private double [][] mat;
     private int rows;

@@ -4,5 +4,7 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
     ],
-    "java.compile.source": "17"
+    "java.compile.source": "17",
+    "java.importOrder": ["java", "javax", "", "#"],
+    "java.checkstyle.enable": false
 }

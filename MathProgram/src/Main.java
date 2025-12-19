@@ -1,4 +1,9 @@
+import calculus.*;
+import expressions.*;
+import linalg.*;
+
 public class Main {
+
     public static void main(String[] args){
         double[][] matr = new double[3][3];
         matr[0][0] = -1; 
@@ -69,7 +74,7 @@ System.out.println(new Cos(new Constant(0)).simplify()); // expect 1 (if impleme
 // ----- STABILITY -----
 Expression deep = new Sin(new Sin(new Sin(new Variable())));
 System.out.println(deep);
-System.out.println(deep.sDerivative());
+System.out.println(deep.sDerivative().simplify());
 
  
 

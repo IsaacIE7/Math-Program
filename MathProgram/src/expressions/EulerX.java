@@ -1,3 +1,5 @@
+package expressions;
+
 public class EulerX implements Expression {
     Expression inner;
 

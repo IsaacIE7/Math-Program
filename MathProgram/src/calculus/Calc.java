@@ -1,3 +1,5 @@
+package calculus;
+
 public class Calc {
     private static final double dx = 1e-7, dt = 1e-7;
  
