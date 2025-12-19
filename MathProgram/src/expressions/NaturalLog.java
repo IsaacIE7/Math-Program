@@ -13,6 +13,9 @@ public class NaturalLog implements Expression {
 
     @Override
     public double evaluate(double x) {
+        if (inner.evaluate(x)  <= 0){
+            throw new IllegalArgumentException("Natural log undefined for non-positive values.");
+        }
         return Math.log(inner.evaluate(x));
     }
 
@@ -23,9 +26,13 @@ public class NaturalLog implements Expression {
 
     @Override
     public Expression simplify() {
-        if (inner.simplify() instanceof Constant constant){
-            return new Constant(Math.log(constant.getValue()));
+        if (inner.simplify() instanceof Constant constant && constant.getValue() <= 0){
+            throw new IllegalArgumentException("Natural log undefined for non-positive values.");
         }
+        else if (inner.simplify() instanceof Constant c) {
+                return new Constant(Math.log(c.getValue()));
+        }
+
         return new NaturalLog(inner.simplify());
     }
 
