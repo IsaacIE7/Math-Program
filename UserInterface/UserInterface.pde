@@ -65,7 +65,7 @@ void mousePressed() {
 }
 
 void drawButton(float baseColor, float hoverColor, float x, float y, float w, float h, String label){
-  if(mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h){
+  if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h){
     fill(hoverColor);
   } else {
     fill(baseColor);
@@ -77,7 +77,7 @@ void drawButton(float baseColor, float hoverColor, float x, float y, float w, fl
 }
 
 boolean buttonPressed(double x, double x2, double y, double y2){
-  if(mouseX > x && mouseX < x2 && mouseY > y && mouseY < y2 && mousePressed){
+  if (mouseX > x && mouseX < x2 && mouseY > y && mouseY < y2 && mousePressed){
     return true;
   }
   return false;

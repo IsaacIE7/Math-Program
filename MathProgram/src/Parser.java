@@ -24,9 +24,9 @@ public class Parser {
             index++;
             Expression right = parseTerm();
             if (op.equals("+")){
-                expr = new Add(expr, right);
+                expr = new Subtract(expr, right);
             } else {
-                expr = new Add(expr, right.multiply(new Constant(-1.0))); 
+                expr = new Subtract(expr, right.multiply(new Constant(-1.0))); 
             }
         }
         return expr;

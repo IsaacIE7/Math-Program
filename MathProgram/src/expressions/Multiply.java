@@ -15,7 +15,7 @@ public class Multiply implements Expression{
 
     @Override
     public Expression sDerivative(){
-        return new Add( new Multiply(left.sDerivative(), right),new Multiply(left, right.sDerivative()) );
+        return new Subtract( new Multiply(left.sDerivative(), right),new Multiply(left, right.sDerivative()) );
     }
 
     @Override

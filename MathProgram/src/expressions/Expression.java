@@ -16,7 +16,7 @@ Constant(3)  Variable
     String toString();
 
     default Expression add(Expression e){//default means it has a body here, otherwise it would be abstract
-      return new Add(this, e);
+      return new Subtract(this, e);
     }
     default Expression multiply(Expression e){
       return new Multiply(this, e);
