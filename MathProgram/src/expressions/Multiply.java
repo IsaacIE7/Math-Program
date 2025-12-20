@@ -21,6 +21,11 @@ public class Multiply implements Expression{
     @Override
     public Expression simplify(){
         Expression sLeft = left.simplify(), sRight = right.simplify();
+        if (sLeft instanceof Constant && sRight instanceof Constant){
+            double c1 = ((Constant)sLeft).getValue();
+            double c2 = ((Constant)sRight).getValue();
+            return new Constant(c1 * c2);
+        } 
         if (sLeft instanceof Constant && ((Constant)sLeft).getValue() == 0.0){//needed to cast sLeft to consant and use getValue to compare to a double
             return new Constant(0);
         } 
@@ -33,11 +38,14 @@ public class Multiply implements Expression{
         if (sRight instanceof Constant && ((Constant)sRight).getValue() == 1.0) {
             return sLeft;
         }
-        if (sLeft instanceof Constant && sRight instanceof Constant){
-            double c1 = ((Constant)sLeft).getValue();
-            double c2 = ((Constant)sRight).getValue();
-            return new Constant(c1 * c2);
-        } 
+        if (sLeft instanceof Power p1 && sRight instanceof Power p2 && (p1.getBase().toString()).equals(p2.getBase().toString())) {
+            return new Power(p1.getBase(), p1.getExp() + p2.getExp());
+        }
+        if (sLeft.toString().equals(sRight.toString())){
+            return new Power(sLeft, 2);
+        }
+        
+        
         return new Multiply(sLeft, sRight);
     }
 

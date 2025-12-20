@@ -13,7 +13,7 @@ public class Matrix {
         }
 
         int firstColLength = mat[0].length;
-        for (double[] row: mat) {//checks if all columns have same length
+        for (double[] row: mat) {//checks if all columns have same length 
             if (row.length != firstColLength){
                 throw new IllegalArgumentException("All rows must have same length");
             }
@@ -51,7 +51,7 @@ public class Matrix {
         Matrix result = new Matrix(rows, cols);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                result.mat[i][j] *= val;
+                result.mat[i][j] = this.mat[i][j] * val;
             }
         }
         return result;

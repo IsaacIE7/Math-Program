@@ -9,7 +9,7 @@ public class Tan implements Expression{
 
     @Override
     public double evaluate(double x) {
-        if (inner.simplify() instanceof Constant c && Math.abs(c.getValue()) == Math.PI/2){
+        if (Math.abs(Math.cos(inner.evaluate(x))) < 1e-9){
             throw new IllegalArgumentException("Tan is Undefined at  x = " + x);
         }
         return Math.tan(inner.evaluate(x)); 
@@ -17,14 +17,11 @@ public class Tan implements Expression{
 
     @Override
     public Expression sDerivative() {
-        return new Constant(1).divide(new Cos(inner).power(2)).multiply(inner.sDerivative());
+        return new Constant(1.0).divide(new Cos(inner).power(2)).multiply(inner.sDerivative());
     }
 
     @Override
     public Expression simplify() {
-      if (inner.simplify() instanceof Constant c && Math.abs(c.getValue()) == 2){
-        throw new IllegalArgumentException("Tan is Undefined.");
-      }
       if (inner.simplify() instanceof Constant constant){
         return new Constant(Math.tan(constant.getValue()));
       }

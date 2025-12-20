@@ -16,7 +16,7 @@ public class Divide implements Expression{
 
     @Override
     public Expression sDerivative() {
-        return new Divide(new Add(new Multiply(left.sDerivative(), right), new Multiply(left, right.sDerivative())), new Power(right, 2));
+        return new Divide(new Add(new Multiply(left.sDerivative(), right), new Multiply(new Constant(-1.0), new Multiply(left, right.sDerivative()))), (new Power(right, 2)));
     }
 
     @Override

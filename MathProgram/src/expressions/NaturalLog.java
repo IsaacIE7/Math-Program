@@ -1,10 +1,6 @@
 package expressions;
 
-public class NaturalLog implements Expression {
-
-    //NEED TO ADD DOMAIN RESTRICTION CHECKS
-
-    
+public class NaturalLog implements Expression {    
     Expression inner;
 
     public NaturalLog(Expression inner){
