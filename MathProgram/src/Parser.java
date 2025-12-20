@@ -8,7 +8,7 @@ public class Parser {
     public static Expression parse(String input){
         tokens = Tokenizer.tokenize(input);
         index = 0;
-        return parsePower();
+        return parseExpression();
     }
 
     //hierarchy: (add, subtract) -> (multiply, divide) -> power ->  lone variable/constant
@@ -18,15 +18,37 @@ public class Parser {
         if (index >= tokens.size()) {
             throw new IllegalArgumentException("Unexpected end of input");
         }
-            throw new IllegalArgumentException("Unexpected token: " + tokens.get(index));
+        Expression expr = parseTerm();
+        while (index < tokens.size() && (tokens.get(index).equals("+") || tokens.get(index).equals("-"))) { 
+            String op = tokens.get(index);
+            index++;
+            Expression right = parseTerm();
+            if (op.equals("+")){
+                expr = new Add(expr, right);
+            } else {
+                expr = new Add(expr, right.multiply(new Constant(-1.0))); 
+            }
+        }
+        return expr;
     }
 
     public static Expression parseTerm(){ //handles *, /. Example: 3x, 2x/3, x/2
         if (index >= tokens.size()) {
             throw new IllegalArgumentException("Unexpected end of input");
         }
-            throw new IllegalArgumentException("Unexpected token: " + tokens.get(index));
-        }    
+        Expression expr = parsePower();
+        while  (index < tokens.size() && (tokens.get(index).equals("*") || tokens.get(index).equals("/"))){
+            String op = tokens.get(index);
+            index++;
+            Expression right = parsePower();
+            if (op.equals("*")){
+                expr = new Multiply(expr, right);
+            } else {
+                expr = new Divide(expr, right);
+            }
+        }
+            return expr;
+    }    
 
     public static Expression parsePower(){//handles power
         if (index >= tokens.size()) {
@@ -39,18 +61,18 @@ public class Parser {
         if (index < tokens.size() && tokens.get(index).equals("^")){
             index++;
             Expression expr = parsePower();
-            if (expr instanceof Constant constant){ // check if the exp is a constant
+            Expression simplified = expr.simplify();
+            if (simplified instanceof Constant constant){ // check if the exp is a constant
                 if (constant.getValue() == (double)((int)constant.getValue())){ // check if it is an integer
                     int exp = (int)constant.getValue();
                     // index++;
                     Expression pow = new Power(base, exp);
-                    if (index < tokens.size() && tokens.get(index).equals("^")){
-                        throw new IllegalArgumentException("Invalid format. Cannot have exponent as exponent");
-                    }
                     return pow;
                 } else {
                     throw new IllegalArgumentException("Invalid exponent. Must be integer");
                 }
+            } else {
+                throw new IllegalArgumentException("Invalid exponent. Must be constant integer expression");
             }
         } 
         return base;
@@ -75,6 +97,7 @@ public class Parser {
         }
 
         if (tokens.get(index).equals("(")) {
+            index++;//consume "(" token
             Expression inner = parseExpression();
             if (index >= tokens.size() || !tokens.get(index).equals(")")) {
                 throw new IllegalArgumentException("Missing parentheses");
