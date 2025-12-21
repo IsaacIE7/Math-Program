@@ -1,3 +1,7 @@
+import expressions.*;
+import linalg.*;
+import calculus.*;
+
 String input = "";
 String result = "";
 PFont font;
@@ -45,23 +49,39 @@ void keyPressed() {
     if (input.length() > 0) {
       input = input.substring(0, input.length() - 1);
     }
-  } else if (key == '+' || key == '-' || key == '*' || key == '^' || key >= '1' && key <= '9' || key == '0'  || key == 'x' || key == '(' || key == ')' || key == ' ' ) {
+  // } else if (key == '+' || key == '-' || key == '*' || key == '^' || key >= '1' && key <= '9' || key == '0'  || key == 'x' || key == '(' || key == ')' || key == ' ' ) {
+  //   input += key;
+  } else {
     input += key;
   }
 }
 
 void mousePressed() {
   if (buttonPressed(50, 170, 220, 260)) { // Derivative
+    try {
+      Expression expr = Parser.parse(input);
+      Expression res = expr.sDerivative();
+      result = "f'(x) = " + res;
+    } catch (Exception e) {
+      result = "Error: " + e.getMessage();
+    }
+  }
 
-    result = "Derivative computation not implemented";
-  }
   if (buttonPressed(230, 350, 220, 260)) { // Evaluate
-    result = "Evaluation computation not implemented";
+    try {
+      Expression expr = Parser.parse(input);
+      double res = expr.evaluate(1.0);
+      result = "f(1) = " + res;
+    } catch (Exception e) {
+      result = "Error: " + e.getMessage();
+    }
   }
+
   if (buttonPressed(320, 390, 10, 40)) { // Clear
-    input = "";
-    result = "";
+      input = "";
+      result = "";
   }
+  
 }
 
 void drawButton(float baseColor, float hoverColor, float x, float y, float w, float h, String label){
