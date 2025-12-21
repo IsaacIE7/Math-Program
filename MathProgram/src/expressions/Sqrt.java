@@ -14,7 +14,7 @@ public class Sqrt implements Expression {
 
     @Override
     public Expression sDerivative() {
-        return new Divide(inner.sDerivative(), new Constant(2.0).multiply(new Sqrt(inner))).multiply(inner.sDerivative());
+        return new Divide(inner.sDerivative(), new Constant(2.0).multiply(new Sqrt(inner)));
     }
 
     @Override

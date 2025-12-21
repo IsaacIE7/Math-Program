@@ -14,8 +14,8 @@ public class Add implements Expression {
     }
 
     @Override
-    public Subtract sDerivative(){// returns new add because there are still a left and right being added(left prime and right prime)
-        return new Subtract(left.sDerivative(), right.sDerivative());//A method that returns Add can override a method that returns Expr
+    public Add sDerivative(){// returns new add because there are still a left and right being added(left prime and right prime)
+        return new Add(left.sDerivative(), right.sDerivative());//A method that returns Add can override a method that returns Expr
                                                                 //This is called covariant return types.
     }
 
@@ -33,7 +33,7 @@ public class Add implements Expression {
             double c2 = ((Constant)sRight).getValue();
             return new Constant(c1 + c2);
         } 
-        return new Subtract(sLeft, sRight);
+        return new Add(sLeft, sRight);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package expressions;
 
 public class ArcTan implements Expression {
-    private Expression inner;
+    private final Expression inner;
 
     public ArcTan(Expression inner) {
         this.inner = inner;

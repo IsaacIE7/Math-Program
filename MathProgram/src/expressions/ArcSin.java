@@ -21,6 +21,9 @@ public class ArcSin implements Expression {
         if (inner.simplify() instanceof Constant c && Math.abs(c.getValue()) > 1){
             throw new IllegalArgumentException("arcsin is undefined.");
         }
+        if (inner.simplify() instanceof Constant c && Math.abs(c.getValue()) <= 1){
+            return new Constant(Math.asin(c.getValue()));
+        }
         return new ArcSin(inner.simplify());
     }
 

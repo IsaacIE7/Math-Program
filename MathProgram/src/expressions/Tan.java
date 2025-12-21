@@ -28,6 +28,7 @@ public class Tan implements Expression{
     return new Tan(inner.simplify());
     }
 
+    @Override
     public String toString(){
         return "tan(" + inner.toString() + ")";
     }
