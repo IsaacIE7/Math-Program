@@ -1,9 +1,13 @@
 import java.util.Scanner;
 
+import expressions.Expression;
+
 public class Main {
 
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
+        System.out.println(Parser.parse("x)"));
+        System.out.println((Parser.parse("1/x")).sDerivative().evaluate(2));
 
         System.out.println("=== Math Calculator ===");
         System.out.println("Commands: 'exit' to quit, 'help' for examples");

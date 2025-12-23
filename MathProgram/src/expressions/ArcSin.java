@@ -8,6 +8,9 @@ public class ArcSin implements Expression {
     }
     @Override
     public double evaluate(double x) {
+        if (Math.abs(inner.evaluate(x)) > 1){
+            throw new IllegalArgumentException("arcsin is undefined.");
+        }
         return Math.asin(inner.evaluate(x));
     }
 

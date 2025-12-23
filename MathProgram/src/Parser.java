@@ -8,7 +8,11 @@ public class Parser {
     public static Expression parse(String input){
         tokens = Tokenizer.tokenize(input);
         index = 0;
-        return parseExpression();
+        Expression res = parseExpression();
+        if (index < tokens.size()) {
+            throw new IllegalArgumentException("Unexpected token: " + tokens.get(index));
+        }
+        return  res;
     }
 
     //hierarchy: (add, subtract) -> (multiply, divide) -> power ->  lone variable/constant
@@ -155,6 +159,13 @@ public class Parser {
             index++;
             return inner;  
         }
+
+
+        if (index >= tokens.size() || tokens.get(index).equals(")")) {
+                throw new IllegalArgumentException("Parentheses error: unmatched ')'");
+        }
+
+
         throw new IllegalArgumentException("Unexpected token: " + tokens.get(index));
     }
 

@@ -11,12 +11,16 @@ public class Divide implements Expression{
 
     @Override
     public double evaluate(double x) {
+        if (right.evaluate(x) == 0.0) {
+            throw new ArithmeticException("Division by zero during evaluation at x = " + x);
+        }
         return left.evaluate(x) / right.evaluate(x);
     }
 
     @Override
     public Expression sDerivative() {
-        return new Divide(new Subtract(new Multiply(left.sDerivative(), right), new Multiply(new Constant(-1.0), new Multiply(left, right.sDerivative()))), (new Power(right, 2)));
+        // return new Divide(new Subtract(new Multiply(left.sDerivative(), right), new Multiply(new Constant(-1.0), new Multiply(left, right.sDerivative()))), (new Power(right, 2)));
+        return left.sDerivative().multiply(right).subtract(left.multiply(right.sDerivative())).divide(right.power(2));
     }
 
     @Override

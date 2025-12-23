@@ -57,7 +57,13 @@ public class Multiply implements Expression{
 
     @Override
     public String toString(){
-        if (left instanceof Constant && right instanceof Variable){//instanceof operator checks if an obj is an instance of a class; it is not a method
+        if (left instanceof Constant c && right instanceof Variable){//instanceof operator checks if an obj is an instance of a class; it is not a method
+            if (c.getValue() == 1.0){
+                return "" + right.toString();
+            }
+            if (c.getValue() == -1.0){
+                return "-" + right.toString();
+            }
             return "" + left.toString() + right.toString();
         }
         if (right instanceof Constant && left instanceof Variable){

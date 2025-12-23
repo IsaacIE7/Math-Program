@@ -8,6 +8,9 @@ public class ArcCos implements Expression {
     }
     @Override
     public double evaluate(double x) {
+        if (Math.abs(inner.evaluate(x)) > 1){
+            throw new IllegalArgumentException("arccos is undefined.");
+        }
         return Math.acos(inner.evaluate(x));
     }
 
