@@ -1,11 +1,10 @@
-import expressions.*;
-import java.util.Scanner;// static import allows you to not have to call the class name before the method name
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
-        
+
         System.out.println("=== Math Calculator ===");
         System.out.println("Commands: 'exit' to quit, 'help' for examples");
         System.out.println();

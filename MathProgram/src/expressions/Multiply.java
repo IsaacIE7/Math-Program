@@ -7,6 +7,12 @@ public class Multiply implements Expression{
         this.left = left;
         this.right = right;
     }
+    public Expression getLeft(){
+        return left;
+    }
+    public Expression getRight(){
+        return right;
+    }
 
     @Override
     public double evaluate(double x){
@@ -56,6 +62,9 @@ public class Multiply implements Expression{
         }
         if (right instanceof Constant && left instanceof Variable){
             return "" + right.toString() + left.toString();
+        }
+        if (left instanceof Variable && right instanceof Power p && p.getBase() instanceof Variable){
+            return "" + left.toString() + right.toString() + "^" + p.getExp();
         }
         return "(" + left.toString() + ")" + "(" + right.toString() + ")";
     }
