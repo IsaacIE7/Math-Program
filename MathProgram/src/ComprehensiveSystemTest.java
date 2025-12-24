@@ -1,5 +1,6 @@
 import calculus.Calc;
 import expressions.*;
+import utils.*;
 
 public class ComprehensiveSystemTest {
     private static int passed = 0;

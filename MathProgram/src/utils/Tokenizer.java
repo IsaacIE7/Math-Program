@@ -1,3 +1,5 @@
+package utils;
+
 import java.util.ArrayList;
 
 public class Tokenizer {
@@ -37,7 +39,55 @@ public class Tokenizer {
             }
 
         }
-        return tokens;
+        return implicitMultiplication(tokens);
+    }
+
+
+    public static ArrayList<String> implicitMultiplication(ArrayList<String> tokens){
+    ArrayList<String> result = new ArrayList<>();
+    
+    for (int i = 0; i < tokens.size(); i++) {//iterate through the tokens array and check if there is a need for implicit multiplication
+        result.add(tokens.get(i));  
+
+        if (i < tokens.size() - 1) { 
+            if (needsMultiplication(tokens.get(i), tokens.get(i + 1))) {// if there is, add the "*" token
+                result.add("*");  
+            }
+        }
+    }
+    
+    return result;
+}
+
+    private static boolean isNum(String token) {
+        try { 
+            Double.parseDouble(token);  
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean isOp(String token) {
+        switch (token) {
+            case "+", "-", "*", "/", "^":
+                return true;    
+            default:
+                return false;
+        }
+    }
+
+    private static boolean needsMultiplication(String current, String next) {
+        if (isOp(next)) {
+            return false;
+        }
+        if (isNum(current)) {
+            return true;
+        }
+        if (current.equals(")") ){
+            return true;
+        }
+        return false;
     }
 }
 

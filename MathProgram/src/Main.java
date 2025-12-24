@@ -1,12 +1,15 @@
-import java.util.Scanner;
-
+import calculus.*;
 import expressions.Expression;
+import java.util.Scanner;
+import utils.*;
 
 public class Main {
 
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
-        System.out.println(Parser.parse("x)"));
+
+        System.out.println("" + Calc.newtonsMethod("x^2 - 1", 2, 500));
+        System.out.println(Parser.parse("x + x + x").simplify());
         System.out.println((Parser.parse("1/x")).sDerivative().evaluate(2));
 
         System.out.println("=== Math Calculator ===");
