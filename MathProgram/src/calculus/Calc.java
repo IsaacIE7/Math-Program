@@ -2,6 +2,7 @@ package calculus;
 
 
 import expressions.*;
+import java.util.ArrayList;
 import utils.*;
 
 
@@ -57,5 +58,48 @@ public class Calc {
             x = xn;
         }
         return xn;
+    }
+
+    public static ArrayList<Double> rootFinder(String func, double lowerBound, double upperBound, int tests){
+        Expression f = Parser.parse(func);
+        double a = lowerBound;
+        double b = upperBound;
+        ArrayList<Double> roots = new ArrayList<>();
+        double step = (b - a) / tests;
+        for (int i = 0; i <= tests; i++) {
+            double startPoint = a + i * step;
+            try {
+                double root = newtonsMethod(func, startPoint, 100);
+                
+                if (Double.isNaN(root) || Double.isInfinite(root)) continue;
+
+                if (root < lowerBound || root > upperBound) {//check if root is out of bounds
+                    continue; // skip this root
+                }
+                
+                double fValue = f.evaluate(root);
+                if (Math.abs(fValue) > 1e-6) {  // if f(root) is not close to 0
+                    continue;  // not a real root, skip it
+                }
+
+                Boolean isDuplicate = false;
+                for (int j = 0; j < roots.size(); j++) {
+                    if (Math.abs(roots.get(j) - root) < 1e-5) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+                if (!isDuplicate) roots.add(root);
+
+                
+
+            
+            
+            } catch (Exception e) {// Ignore exceptions from Newton's method
+                
+            }
+        }
+
+        return roots;
     }
 }
