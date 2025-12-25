@@ -33,5 +33,10 @@ public class ArcSin implements Expression {
     public String toString(){
         return "arcsin(" + inner.toString() + ")";
     }
+    @Override
+    public Expression sIntegral() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'sIntegral'");
+    }
     
 }

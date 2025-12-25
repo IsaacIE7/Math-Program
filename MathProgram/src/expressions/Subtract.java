@@ -20,6 +20,11 @@ public class Subtract implements Expression {
     }
 
     @Override
+    public Expression sIntegral(){
+        return new Subtract(left.sIntegral(), right.sIntegral());
+    }
+
+    @Override
     public Expression simplify(){
         Expression sLeft = left.simplify(), sRight = right.simplify();
         if (sLeft instanceof Constant && ((Constant)sLeft).getValue() == 0.0){//needed to cast sLeft to consant and use getValue to compare to a double

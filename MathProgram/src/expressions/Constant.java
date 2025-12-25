@@ -18,6 +18,11 @@ public class Constant implements Expression {
     }
 
     @Override
+    public Expression sIntegral() {
+        return new Multiply(new Constant(value), new Variable());
+    }
+
+    @Override
     public Expression simplify(){
         return this;
     }
@@ -26,4 +31,5 @@ public class Constant implements Expression {
     public String toString(){
         return Double.toString(value);
     }
+    
 }

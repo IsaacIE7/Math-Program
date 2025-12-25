@@ -29,5 +29,11 @@ public class ArcTan implements Expression {
     public String toString(){
         return "arctan(" + inner.toString() + ")";
     }
+
+    @Override
+    public Expression sIntegral() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'sIntegral'");
+    }
     
 }

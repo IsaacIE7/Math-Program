@@ -21,6 +21,14 @@ public class Tan implements Expression{
     }
 
     @Override
+    public Expression sIntegral() {
+        if (inner.simplify() instanceof Variable) {
+            return new NaturalLog(new Cos(new Variable())).multiply(new Constant(-1));
+        }
+        throw new UnsupportedOperationException("Cannot integrate composites yet");
+    }
+    
+    @Override
     public Expression simplify() {
       if (inner.simplify() instanceof Constant constant){
         return new Constant(Math.tan(constant.getValue()));
@@ -32,5 +40,7 @@ public class Tan implements Expression{
     public String toString(){
         return "tan(" + inner.toString() + ")";
     }
+
+    
 
 }

@@ -25,6 +25,12 @@ public class Multiply implements Expression{
     }
 
     @Override
+    public Expression sIntegral() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'sIntegral'");
+    }
+
+    @Override
     public Expression simplify(){
         Expression sLeft = left.simplify(), sRight = right.simplify();
         if (sLeft instanceof Constant && sRight instanceof Constant){
@@ -74,4 +80,5 @@ public class Multiply implements Expression{
         }
         return "(" + left.toString() + ")" + "(" + right.toString() + ")";
     }
+    
 }

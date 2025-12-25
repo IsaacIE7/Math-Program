@@ -19,6 +19,14 @@ public class NaturalLog implements Expression {
     public Expression sDerivative() {
         return new Multiply(new Divide(new Constant(1.0), inner), inner.sDerivative());
     }
+    
+    @Override 
+    public Expression sIntegral() {
+        if (inner.simplify() instanceof Variable) {
+            return new Multiply(new Variable(), new NaturalLog(new Variable())).subtract(new Variable());
+        }
+        throw new UnsupportedOperationException("Cannot integrate composites yet");
+    }
 
     @Override
     public Expression simplify() {

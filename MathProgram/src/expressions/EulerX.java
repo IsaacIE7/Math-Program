@@ -18,6 +18,14 @@ public class EulerX implements Expression {
     }
 
     @Override
+    public Expression sIntegral() {
+        if (inner.simplify() instanceof Variable){
+            return new EulerX(inner.simplify());
+        }
+        throw new UnsupportedOperationException("Cannot integrate composites yet");
+    }
+
+    @Override
     public Expression simplify() {
         if (inner.simplify() instanceof Constant constant){
             return new Constant(Math.exp(constant.getValue()));

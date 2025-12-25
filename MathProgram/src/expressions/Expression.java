@@ -12,6 +12,7 @@ Constant(3)  Variable
 */
     double evaluate(double x);
     Expression sDerivative();//symbolic derivative
+    Expression sIntegral();//symbolic integral, without constant of integration // no composites yet
     Expression simplify();
     @Override
     String toString();

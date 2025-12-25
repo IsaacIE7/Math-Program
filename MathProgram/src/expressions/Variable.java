@@ -11,6 +11,11 @@ public class Variable implements Expression {
     }
 
     @Override
+    public Expression sIntegral(){
+        return new Multiply(new Constant(1).divide(new Constant(2)), new Power(new Variable(), 2));
+    }
+
+    @Override
     public Expression simplify(){
         return this;
     }

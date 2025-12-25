@@ -18,6 +18,14 @@ public class Sqrt implements Expression {
     }
 
     @Override
+    public Expression sIntegral() {
+        if (inner.simplify() instanceof Variable) {
+            return new Multiply(new Constant(2).divide(new Constant(3)), new Power(new Variable(), 3 / 2));
+        }
+        throw new UnsupportedOperationException("Cannot integrate composites yet");
+    }
+
+    @Override
     public Expression simplify() {
         if (inner.simplify() instanceof Constant c) {
             double value = c.getValue();

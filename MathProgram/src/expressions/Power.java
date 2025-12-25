@@ -21,6 +21,21 @@ public class Power implements Expression{
     }
 
     @Override
+    public Expression sIntegral(){
+        if (base instanceof Variable){
+            if (exp == -1) {
+                return new NaturalLog(base);
+            }
+            if (base.simplify() instanceof Variable) {
+                return new Power(base, exp + 1).divide(new Constant(exp + 1));
+            }
+            return new Multiply(new Constant(1.0 / (exp + 1)), new Power(base, exp + 1));
+        } 
+        throw new UnsupportedOperationException("Cannot integrate composites yet");
+        
+    }
+
+    @Override
     public Expression simplify(){
         Expression simplifiedBase = base.simplify();
         if (exp == 0) return new Constant(1);

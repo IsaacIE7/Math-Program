@@ -18,6 +18,14 @@ public class Sin implements Expression {
     }
 
     @Override
+    public Expression sIntegral() { // no composites yet
+        if (inner.simplify() instanceof Variable) {
+            return new Cos(new Variable()).multiply(new Constant(-1));
+        }
+        throw new UnsupportedOperationException("Cannot integrate composites yet");
+    }
+
+    @Override
     public Expression simplify() {
         if (inner.simplify() instanceof Constant constant){
             return new Constant(Math.sin(constant.getValue()));
@@ -29,4 +37,6 @@ public class Sin implements Expression {
     public String toString(){
         return "sin(" + inner.toString() + ")";
     }
+
+    
 }

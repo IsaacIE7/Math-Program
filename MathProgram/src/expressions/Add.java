@@ -20,6 +20,11 @@ public class Add implements Expression {
     }
 
     @Override
+    public Expression sIntegral(){// returns new add because there are still a left and right being
+        return new Add(left.sIntegral(), right.sIntegral());
+    }
+    
+    @Override
     public Expression simplify(){
         Expression sLeft = left.simplify(), sRight = right.simplify();
 

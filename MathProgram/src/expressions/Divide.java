@@ -47,4 +47,10 @@ public class Divide implements Expression{
     public String toString(){
         return "(" + left.toString() + "/" + right.toString() + ")";
     }
+
+    @Override
+    public Expression sIntegral() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'sIntegral'");
+    }
 }

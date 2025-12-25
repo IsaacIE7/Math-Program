@@ -33,5 +33,10 @@ public class ArcCos implements Expression {
     public String toString(){
         return "arccos(" + inner.toString() + ")";
     }
+    @Override
+    public Expression sIntegral() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'sIntegral'");
+    }
     
 }
