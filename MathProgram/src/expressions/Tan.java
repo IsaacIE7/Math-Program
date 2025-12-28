@@ -1,5 +1,7 @@
 package expressions;
 
+import java.util.Map;
+
 public class Tan implements Expression{
     Expression inner;
 
@@ -18,6 +20,16 @@ public class Tan implements Expression{
     @Override
     public Expression sDerivative() {
         return new Constant(1.0).divide(new Cos(inner).power(2)).multiply(inner.sDerivative());
+    }
+
+    @Override
+    public double evaluate(Map<String, Double> variables) {
+        return Math.tan(inner.evaluate(variables));
+    }
+
+    @Override
+    public Expression sPartialDerivative(String varName) {
+        return new Constant(1.0).divide(new Cos(inner).power(2)).multiply(inner.sPartialDerivative(varName));
     }
 
     @Override

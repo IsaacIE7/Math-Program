@@ -1,5 +1,7 @@
 package expressions;
 
+import java.util.Map;
+
 public class Power implements Expression{
     //limited to integer exponents and chain rule for derivative; still need to add const^x and its deriv rule
     private final int exp;
@@ -18,6 +20,16 @@ public class Power implements Expression{
     @Override
     public Expression sDerivative(){
         return new Multiply(base.sDerivative(), new Multiply(new Constant(exp), new Power(base, exp - 1)));
+    }
+
+    @Override
+    public double evaluate(Map<String, Double> variables) {
+        return Math.pow(base.evaluate(variables), exp);
+    }
+
+    @Override
+    public Expression sPartialDerivative(String varName) {
+        return new Multiply(base.sPartialDerivative(varName), new Multiply(new Constant(exp), new Power(base, exp - 1)));
     }
 
     @Override
@@ -47,4 +59,6 @@ public class Power implements Expression{
     public Expression getBase() {
         return base;
     }
+
+    
 }

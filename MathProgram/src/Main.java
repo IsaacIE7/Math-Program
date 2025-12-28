@@ -10,12 +10,16 @@ public class Main {
     private static String currentExprString = "";
 
     public static void main(String[] args) {
-        System.out.println("╔════════════════════════════════════════════════════════════════╗");
-        System.out.println("║          WELCOME TO THE MATH EXPRESSION CALCULATOR            ║");
-        System.out.println("╚════════════════════════════════════════════════════════════════╝");
-        System.out.println();
+System.out.println(Tokenizer.tokenize("(x + 1)"));
+System.out.println(Tokenizer.tokenize("x^2 + y^2"));
+
+
+        // System.out.println("╔════════════════════════════════════════════════════════════════╗");
+        // System.out.println("║          WELCOME TO THE MATH EXPRESSION CALCULATOR            ║");
+        // System.out.println("╚════════════════════════════════════════════════════════════════╝");
+        // System.out.println();
         
-        mainMenu();
+        // mainMenu();
     }
 
     public static void mainMenu() {

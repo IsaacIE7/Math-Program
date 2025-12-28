@@ -1,5 +1,7 @@
 package expressions;
 
+import java.util.Map;
+
 public class Sin implements Expression {
     Expression inner;
 
@@ -18,6 +20,16 @@ public class Sin implements Expression {
     }
 
     @Override
+    public double evaluate(Map<String, Double> variables) {
+        return Math.sin(inner.evaluate(variables));
+    }
+
+    @Override
+    public Expression sPartialDerivative(String varName) {
+        return new Multiply(new Cos(inner), inner.sPartialDerivative(varName));
+    }
+
+    @Override
     public Expression simplify() {
         if (inner.simplify() instanceof Constant constant){
             return new Constant(Math.sin(constant.getValue()));
@@ -29,4 +41,6 @@ public class Sin implements Expression {
     public String toString(){
         return "sin(" + inner.toString() + ")";
     }
+
+    
 }

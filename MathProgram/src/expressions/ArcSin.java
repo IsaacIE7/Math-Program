@@ -1,5 +1,7 @@
 package expressions;
 
+import java.util.Map;
+
 public class ArcSin implements Expression {
     private Expression inner;
 
@@ -20,6 +22,19 @@ public class ArcSin implements Expression {
     }
 
     @Override
+    public double evaluate(Map<String, Double> variables) {
+        if (Math.abs((double)inner.evaluate(variables)) > 1.0){
+            throw new IllegalArgumentException("arcsin is undefined.");
+        }
+        return Math.asin(inner.evaluate(variables));
+    }
+
+    @Override
+    public Expression sPartialDerivative(String varName) {
+        return new Divide(new Constant(1.0), new Sqrt(new Constant(1.0).add(inner.power(2).multiply(new Constant(-1.0))))).multiply(inner.sPartialDerivative(varName));
+    }
+
+    @Override
     public Expression simplify() {
         if (inner.simplify() instanceof Constant c && Math.abs(c.getValue()) > 1){
             throw new IllegalArgumentException("arcsin is undefined.");
@@ -33,5 +48,6 @@ public class ArcSin implements Expression {
     public String toString(){
         return "arcsin(" + inner.toString() + ")";
     }
+    
     
 }

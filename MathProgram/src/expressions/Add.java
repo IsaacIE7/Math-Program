@@ -1,5 +1,7 @@
 package expressions;
 
+import java.util.Map;
+
 public class Add implements Expression {
     private final Expression left, right;
 
@@ -20,15 +22,25 @@ public class Add implements Expression {
     }
 
     @Override
+    public double evaluate(Map<String, Double> vars){
+        return left.evaluate(vars) + right.evaluate(vars);
+    }
+
+    @Override
+    public Expression sPartialDerivative(String varName) {
+        return left.sPartialDerivative(varName).add(right.sPartialDerivative(varName)); 
+    }
+
+    @Override
     public Expression simplify(){
         Expression sLeft = left.simplify(), sRight = right.simplify();
 
 
-        if (sLeft instanceof Variable){//check if terms are lone variable x, if yes then make them a new Multiply by 1
-            sLeft = new Multiply(new Constant(1), new Variable());
+        if (sLeft instanceof Variable v){//check if terms are lone variable x, if yes then make them a new Multiply by 1
+            sLeft = new Multiply(new Constant(1), new Variable(v.getName()) );
         }
-        if (sRight instanceof Variable){
-            sRight = new Multiply(new Constant(1), new Variable());
+        if (sRight instanceof Variable v){
+            sRight = new Multiply(new Constant(1), new Variable(v.getName()));
         }
         if (sLeft instanceof Power){//check if terms are lone variable x to an exp, if yes then make them a new Multiply by 1
             sLeft = new Multiply(new Constant(1), sLeft);
@@ -56,7 +68,7 @@ public class Add implements Expression {
 
         if (sLeft instanceof Multiply m && sRight instanceof Multiply m2){
             if (m.getLeft() instanceof  Constant c && m2.getLeft() instanceof Constant c2){
-                if (m.getRight() instanceof Variable && m2.getRight() instanceof Variable) {
+                if (m.getRight() instanceof Variable v && m2.getRight() instanceof Variable v2 && v.getName().equals(v2.getName())) {
                     return new Multiply(new Constant(c.getValue() + c2.getValue()), m2.getRight()).simplify();
                 }
 

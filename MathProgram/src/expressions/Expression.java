@@ -1,5 +1,7 @@
 package expressions;
 
+import java.util.Map;
+
 public interface Expression {//Tree structure for expressions; uses nodes.
 /*      Looks like:
               Add
@@ -10,8 +12,10 @@ Constant(3)  Variable
 
         would hold 3x + 2
 */
-    double evaluate(double x);
+    double evaluate(double x);// for single var
+    double evaluate(Map<String, Double> variables);//for multivar
     Expression sDerivative();//symbolic derivative
+    Expression sPartialDerivative(String varName);
     Expression simplify();
     @Override
     String toString();

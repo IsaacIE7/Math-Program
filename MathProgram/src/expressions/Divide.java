@@ -1,5 +1,7 @@
 package expressions;
 
+import java.util.Map;
+
 public class Divide implements Expression{
     private final Expression left;
     private final Expression right;
@@ -21,6 +23,16 @@ public class Divide implements Expression{
     public Expression sDerivative() {
         // return new Divide(new Subtract(new Multiply(left.sDerivative(), right), new Multiply(new Constant(-1.0), new Multiply(left, right.sDerivative()))), (new Power(right, 2)));
         return left.sDerivative().multiply(right).subtract(left.multiply(right.sDerivative())).divide(right.power(2));
+    }
+
+    @Override
+    public double evaluate(Map<String, Double> vars){
+        return left.evaluate(vars) / right.evaluate(vars);
+    }
+
+    @Override
+    public Expression sPartialDerivative(String varName) {
+        return left.sPartialDerivative(varName).multiply(right).subtract(left.multiply(right.sPartialDerivative(varName))).divide(right.power(2));
     }
 
     @Override

@@ -1,5 +1,7 @@
 package expressions;
 
+import java.util.Map;
+
 public class Subtract implements Expression {
     private final Expression left, right;
 
@@ -17,6 +19,16 @@ public class Subtract implements Expression {
     public Subtract sDerivative(){// returns new add because there are still a left and right being added(left prime and right prime)
         return new Subtract(left.sDerivative(), right.sDerivative());//A method that returns Add can override a method that returns Expr
                                                                 //This is called covariant return types.
+    }
+
+    @Override
+    public double evaluate(Map<String, Double> vars){
+        return left.evaluate(vars) - right.evaluate(vars);
+    }
+
+    @Override
+    public Expression sPartialDerivative(String varName) {
+        return left.sPartialDerivative(varName).subtract(right.sPartialDerivative(varName)); 
     }
 
     @Override

@@ -1,5 +1,7 @@
 package expressions;
 
+import java.util.Map;
+
 public class ArcTan implements Expression {
     private final Expression inner;
 
@@ -15,6 +17,16 @@ public class ArcTan implements Expression {
     @Override
     public Expression sDerivative() {
         return new Divide(new Constant(1.0), new Constant(1).add(inner.power(2))).multiply(inner.sDerivative());
+    }
+
+    @Override
+    public double evaluate(Map<String, Double> variables) {
+        return Math.atan(inner.evaluate(variables));
+    }
+
+    @Override
+    public Expression sPartialDerivative(String varName) {
+        return new Divide(new Constant(1.0), new Constant(1).add(inner.power(2))).multiply(inner.sPartialDerivative(varName));
     }
 
     @Override

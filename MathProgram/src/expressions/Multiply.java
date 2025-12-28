@@ -1,5 +1,7 @@
 package expressions;
 
+import java.util.Map;
+
 public class Multiply implements Expression{
     private final Expression left, right;
 
@@ -21,7 +23,17 @@ public class Multiply implements Expression{
 
     @Override
     public Expression sDerivative(){
-        return new Add( new Multiply(left.sDerivative(), right),new Multiply(left, right.sDerivative()) );
+        return new Add( new Multiply(left.sDerivative(), right),new Multiply(left, right.sDerivative()));
+    }
+
+    @Override
+    public double evaluate(Map<String, Double> vars){
+        return left.evaluate(vars) * right.evaluate(vars);
+    }
+
+    @Override
+    public Expression sPartialDerivative(String varName) {
+        return new Add(new Multiply(left.sPartialDerivative(varName), right), new Multiply(left, right.sPartialDerivative(varName)));
     }
 
     @Override
@@ -68,6 +80,16 @@ public class Multiply implements Expression{
         }
         if (right instanceof Constant && left instanceof Variable){
             return "" + right.toString() + left.toString();
+        }
+        if (left instanceof Constant c && right instanceof Multiply m && m.getLeft() instanceof Constant c2){
+            return "" + (c.getValue() * c2.getValue()) + m.getRight().toString();
+        }
+        if (left instanceof Multiply m && m.getLeft() instanceof Constant c && right instanceof Constant c2){
+            return "" + (c.getValue() * c2.getValue()) + m.getRight().toString();
+        }
+        if (left instanceof Constant c && right instanceof Power p && p.getBase() instanceof Variable){
+            
+            return "" + left.toString() + right.toString();
         }
         if (left instanceof Variable && right instanceof Power p && p.getBase() instanceof Variable){
             return "" + left.toString() + right.toString() + "^" + p.getExp();

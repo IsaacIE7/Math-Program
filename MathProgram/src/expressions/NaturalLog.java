@@ -1,5 +1,7 @@
 package expressions;
 
+import java.util.Map;
+
 public class NaturalLog implements Expression {    
     Expression inner;
 
@@ -18,6 +20,16 @@ public class NaturalLog implements Expression {
     @Override
     public Expression sDerivative() {
         return new Multiply(new Divide(new Constant(1.0), inner), inner.sDerivative());
+    }
+
+    @Override
+    public double evaluate(Map<String, Double> variables) {
+        return Math.log(inner.evaluate(variables));
+    }
+
+    @Override
+    public Expression sPartialDerivative(String varName) {
+        return new Multiply(new Divide(new Constant(1.0), inner), inner.sPartialDerivative(varName));
     }
 
     @Override

@@ -1,5 +1,7 @@
 package expressions;
 
+import java.util.Map;
+
 public class ArcCos implements Expression {
     private Expression inner;
 
@@ -17,6 +19,19 @@ public class ArcCos implements Expression {
     @Override
     public Expression sDerivative() {
         return new Divide(new Constant(1.0), new Sqrt(new Constant(1.0).add(inner.power(2).multiply(new Constant(-1.0))))).multiply(new Constant(-1.0)).multiply(inner.sDerivative());
+    }
+
+    @Override
+    public double evaluate(Map<String, Double> variables) {
+        if (Math.abs((double)inner.evaluate(variables)) > 1){
+            throw new IllegalArgumentException("arccos is undefined.");
+        }
+        return Math.acos(inner.evaluate(variables));
+    }
+
+    @Override
+    public Expression sPartialDerivative(String varName) {
+        return new Divide(new Constant(1.0), new Sqrt(new Constant(1.0).add(inner.power(2).multiply(new Constant(-1.0))))).multiply(new Constant(-1.0)).multiply(inner.sPartialDerivative(varName));
     }
 
     @Override

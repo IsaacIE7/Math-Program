@@ -1,5 +1,7 @@
 package expressions;
 
+import java.util.Map;
+
 public class EulerX implements Expression {
     Expression inner;
 
@@ -18,6 +20,16 @@ public class EulerX implements Expression {
     }
 
     @Override
+    public double evaluate(Map<String, Double> variables) {
+        return Math.exp(inner.evaluate(variables));
+    }
+
+    @Override
+    public Expression sPartialDerivative(String varName) {
+        return new EulerX(inner).multiply(inner.sPartialDerivative(varName));
+    }
+
+    @Override
     public Expression simplify() {
         if (inner.simplify() instanceof Constant constant){
             return new Constant(Math.exp(constant.getValue()));
@@ -29,4 +41,6 @@ public class EulerX implements Expression {
     public String toString(){
         return "e^(" + inner.toString() + ")";
     }
+
+    
 }

@@ -1,5 +1,7 @@
 package expressions;
 
+import java.util.Map;
+
 public class Sqrt implements Expression {
     private Expression inner;
 
@@ -15,6 +17,16 @@ public class Sqrt implements Expression {
     @Override
     public Expression sDerivative() {
         return new Divide(inner.sDerivative(), new Constant(2.0).multiply(new Sqrt(inner)));
+    }
+
+    @Override
+    public double evaluate(Map<String, Double> variables) {
+        return Math.sqrt(inner.evaluate(variables));
+    }
+
+    @Override
+    public Expression sPartialDerivative(String varName) {
+        return new Divide(inner.sPartialDerivative(varName), new Constant(2.0).multiply(new Sqrt(inner)));
     }
 
     @Override
@@ -37,5 +49,7 @@ public class Sqrt implements Expression {
     public String toString() {
         return "sqrt(" + inner.toString() + ")";
     }
+
+    
     
 }

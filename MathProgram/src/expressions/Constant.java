@@ -1,5 +1,7 @@
 package expressions;
 
+import java.util.Map;
+
 public class Constant implements Expression {
     private final double value; 
 
@@ -12,9 +14,20 @@ public class Constant implements Expression {
     public double evaluate(double x){
         return value;
     }
+
+    @Override
+    public double evaluate(Map<String, Double> variables) {
+        return value;
+    }
+
     @Override
     public Constant sDerivative(){
        return new Constant(0);
+    }
+
+    @Override
+    public Expression sPartialDerivative(String varName) {
+        return new Constant(0);
     }
 
     @Override
@@ -26,4 +39,6 @@ public class Constant implements Expression {
     public String toString(){
         return Double.toString(value);
     }
+    
+    
 }
