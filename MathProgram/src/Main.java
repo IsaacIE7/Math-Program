@@ -10,6 +10,11 @@ public class Main {
     private static String currentExprString = "";
 
     public static void main(String[] args) {
+        System.out.println(Parser.parse("-1 + 1").simplify()  );
+        System.out.println( "" + Parser.parse("-x").simplify());
+        System.out.println( "" + Parser.parse("1(x+1)").simplify());
+        System.out.println( "" + Parser.parse("-5 * 3").simplify());
+
 System.out.println(Tokenizer.tokenize("(x + 1)"));
 System.out.println(Tokenizer.tokenize("x^2 + y^2"));
 

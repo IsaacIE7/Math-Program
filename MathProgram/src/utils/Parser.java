@@ -91,6 +91,19 @@ public class Parser {
             throw new IllegalArgumentException("Unexpected end of input");
         }
 
+        // Handle unary minus
+    if (tokens.get(index).equals("-")) {
+        index++;
+        Expression expr = parsePrimary();  // Recursively parse what comes after
+        return new Multiply(new Constant(-1.0), expr);
+    }
+
+    // Handle unary plus (optional, just consume it)
+    if (tokens.get(index).equals("+")) {
+        index++;
+        return parsePrimary();
+    }
+
         if (tokens.get(index).equals("pi")) {
             index++;
             return new Constant(Math.PI);
