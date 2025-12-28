@@ -90,12 +90,6 @@ public class Parser {
         if (index >= tokens.size()) {
             throw new IllegalArgumentException("Unexpected end of input");
         }
-        
-        String tokenTemp = tokens.get(index);
-        if (tokenTemp.length() == 1 && Character.isLetter(tokenTemp.charAt(0))) { // a method from the Character class to check if the token is a single letter variable
-            index++;
-            return new Variable(tokenTemp);
-        }
 
         if (tokens.get(index).equals("pi")) {
             index++;
@@ -106,6 +100,13 @@ public class Parser {
             index++;
             return new Constant(Math.E);
         }
+        
+        String tokenTemp = tokens.get(index);
+        if (tokenTemp.length() == 1 && Character.isLetter(tokenTemp.charAt(0))) { // a method from the Character class to check if the token is a single letter variable
+            index++;
+            return new Variable(tokenTemp);
+        }
+
 
         try { 
             double value = Double.parseDouble(tokens.get(index));
