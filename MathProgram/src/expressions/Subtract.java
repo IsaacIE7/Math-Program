@@ -45,7 +45,10 @@ public class Subtract implements Expression {
             double c2 = ((Constant)sRight).getValue();
             return new Constant(c1 - c2);
         } 
+        if (sLeft.toString().equals(sRight.toString())) return new Constant(0);
+
         return new Subtract(sLeft, sRight);
+        
     }
 
     @Override
