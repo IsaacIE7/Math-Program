@@ -14,6 +14,13 @@ public class Vector {
         return comps.length;
     }
 
+    public double get(int index){
+        if (index < 0 || index >= comps.length){
+            throw new IndexOutOfBoundsException("Index out of bounds for vector of dimension " + comps.length);
+        }
+        return comps[index];
+    }
+
     public double getAngleBetween(Vector other){
         if (this.getDimension() != other.getDimension()){
             throw new IllegalArgumentException("Must be same dimensions.");

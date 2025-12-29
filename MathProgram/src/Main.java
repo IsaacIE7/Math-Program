@@ -1,6 +1,7 @@
 import calculus.*;
 import expressions.*;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 import utils.*;
 
@@ -10,17 +11,23 @@ public class Main {
     private static String currentExprString = "";
 
     public static void main(String[] args) {
-        System.out.println(Parser.parse("-1 + 1").simplify()  );
+        Map<String, Double> map = Map.of(
+            "x", 1.0,
+            "y", 2.0,
+            "z", 5.0,
+            "t", 3.0
+        );
+        System.out.println(Parser.parse("x + 2y + z + 3t").simplify());
+        System.out.println((float) Parser.parse("x + 2y + z + 3t").evaluate(map));
+
         System.out.println( "" + Parser.parse("-x").simplify());
         System.out.println( "" + Parser.parse("1(x+1)").simplify());
         System.out.println( "" + Parser.parse("-5 * 3").simplify());
 
-System.out.println(Tokenizer.tokenize("(x + 1)"));
-System.out.println(Tokenizer.tokenize("x^2 + y^2"));
 
 
         // System.out.println("╔════════════════════════════════════════════════════════════════╗");
-        // System.out.println("║          WELCOME TO THE MATH EXPRESSION CALCULATOR            ║");
+        // System.out.println("║          WELCOME TO THE MATH EXPRESSION CALCULATOR             ║");
         // System.out.println("╚════════════════════════════════════════════════════════════════╝");
         // System.out.println();
         

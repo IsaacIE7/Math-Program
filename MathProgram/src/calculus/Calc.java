@@ -34,6 +34,10 @@ public class Calc {
         };
     } 
 
+    // public static CritPoints(String func){ //single var only
+
+    // }
+
     public static Expression taylorSeries(Expression func, double c, int terms){
         Expression result = new Constant(func.evaluate(c));
         Expression currentD = func;
