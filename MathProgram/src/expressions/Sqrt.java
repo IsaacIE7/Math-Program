@@ -11,6 +11,9 @@ public class Sqrt implements Expression {
 
     @Override
     public double evaluate(double x) {
+        if (inner.evaluate(x) < 0) {
+            throw new IllegalArgumentException("Cannot take the square root of a negative number");
+        }
         return Math.sqrt(inner.evaluate(x));
     }
 
@@ -38,12 +41,9 @@ public class Sqrt implements Expression {
                     return new Constant((int) Math.sqrt(value));
                 }
                 return new Constant(Math.sqrt(value));
-            } else {
-                throw new IllegalArgumentException("Cannot take the square root of a negative number");
-            }
-        } else {
-            return new Sqrt(inner.simplify());
+            } 
         }
+        return new Sqrt(inner.simplify());
     }
 
     public String toString() {

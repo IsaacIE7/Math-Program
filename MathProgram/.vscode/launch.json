@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ComprehensiveSystemTest",
+            "request": "launch",
+            "mainClass": "ComprehensiveSystemTest",
+            "projectName": "MathProgram_78a069f3"
+        },
+        {
+            "type": "java",
             "name": "Math GUI",
             "request": "launch",
             "mainClass": "gui.MathGUI",
