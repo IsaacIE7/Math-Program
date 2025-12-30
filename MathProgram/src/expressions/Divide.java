@@ -52,6 +52,7 @@ public class Divide implements Expression{
             double c2 = ((Constant)sRight).getValue();
             return new Constant(c1 / c2);
         }
+        if (sLeft.toString().equals(sRight.toString())) return new Constant(1);
         return new Divide(sLeft, sRight);
     }
 

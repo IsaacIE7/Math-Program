@@ -34,8 +34,18 @@ public class Calc {
         };
     } 
 
-    // public static CritPoints(String func){ //single var only
-
+    public static ArrayList<Double> findCriticalPoints(String func, double lower, double upper) {
+        String fp = Parser.parse(func).sDerivative().toString();
+        return rootFinder(fp, lower, upper, 150);
+    }
+    
+    public static ArrayList<Double> findInflectionPoints(String func, double lower, double upper) {
+        String fpp = Parser.parse(func).sDerivative().sDerivative().toString();
+        return rootFinder(fpp, lower, upper, 150);
+    }
+    
+    // public static ArrayList<ExtremaInfo> classifyExtrema(String func, double lower, double upper) {
+    //     // Find critical points AND classify them as max/min
     // }
 
     public static Expression taylorSeries(Expression func, double c, int terms){

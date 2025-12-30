@@ -112,7 +112,7 @@ public class Tokenizer {
             return false;
         }
         //now the valid cases for implicit multiplication
-        if (isNum(current) && (isVar(next) || next.equals("("))) {// number followed by variable or opening parentheses then implicit multiplication is needed
+        if (isNum(current) && (isVar(next) || next.equals("(") || isFunctionName(next))) {// number followed by variable or opening parentheses then implicit multiplication is needed
             return true;
         }
 
