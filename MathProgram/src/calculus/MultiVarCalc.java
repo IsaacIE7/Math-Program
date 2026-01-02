@@ -62,6 +62,18 @@ public class MultiVarCalc {
     public static double divAt(String[] vars, Map<String, Double> point, String... comps){
         return div(vars, comps).evaluate(point);
     }
+
+    public static Expression curl2d(String[] vars, String Comp1, String Comp2){
+        Expression x = Parser.parse(Comp1);
+        Expression y = Parser.parse(Comp2);
+        if (vars.length != 2) throw new IllegalArgumentException("Components and variables do not match."); 
+
+        return y.sPartialDerivative(vars[0]).subtract(x.sPartialDerivative(vars[1]));
+    }
+
+    public static double curl2dAt(String[] vars, String xComp, String yComp, Map<String, Double> point ){
+        return curl2d(vars, xComp, yComp).evaluate(point);
+    }
     //^^
 
 

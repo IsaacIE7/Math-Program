@@ -2,7 +2,7 @@ package calculus;
 
 public class ExtremaInfo {
     public enum Crit {
-        MAX, MIN, INF, SADPNT
+        MAX, MIN, INF
     }
 
     private final double x;
@@ -12,7 +12,7 @@ public class ExtremaInfo {
     public ExtremaInfo(double x, double val, Crit type){
         this.x = x;
         this.val = val;
-        this.type = null;
+        this.type = type;
     }
 
     

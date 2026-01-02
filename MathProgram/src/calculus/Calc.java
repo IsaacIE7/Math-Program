@@ -44,9 +44,48 @@ public class Calc {
         return rootFinder(fpp, lower, upper, 150);
     }
     
-    // public static ArrayList<ExtremaInfo> classifyExtrema(String func, double lower, double upper) {
-    //     // Find critical points AND classify them as max/min
-    // }
+    public static ArrayList<ExtremaInfo> classifyPoints(String func, double lower, double upper) {
+        Expression f = Parser.parse(func);
+        Expression fp = f.sDerivative(); 
+        Expression fpp = f.sDerivative().sDerivative(); 
+        ArrayList<ExtremaInfo> results = new ArrayList<>();
+        ArrayList<Double> critPoints = findCriticalPoints(func, lower, upper);
+        ArrayList<Double> infPoints = findInflectionPoints(func, lower, upper);
+        
+    // Then reuse fpp.evaluate(p) multiple times
+        
+        // What do you need to do for each critical point?
+        for (Double p : critPoints) {
+            double secondDeriv = fpp.evaluate(p);
+    
+        if (Math.abs(secondDeriv) > 0) {
+        // Conclusive second derivative test
+            if (secondDeriv > 0) {
+                results.add(new ExtremaInfo(p, f.evaluate(p), ExtremaInfo.Crit.MIN));
+            }
+            else {
+                results.add(new ExtremaInfo(p, f.evaluate(p), ExtremaInfo.Crit.MAX));
+            }
+        } else {
+        double fpBefore = fp.evaluate(p - .01);
+        double fpAfter = fp.evaluate(p + .01);
+        
+        if (fpBefore < 0 && fpAfter > 0) { 
+            results.add(new ExtremaInfo(p, f.evaluate(p), ExtremaInfo.Crit.MIN));
+        }
+        else if (fpBefore > 0 && fpAfter < 0) {
+            results.add(new ExtremaInfo(p, f.evaluate(p), ExtremaInfo.Crit.MAX));
+        }
+
+    }
+        }
+
+        for (Double p : infPoints) {
+        
+        }
+    
+        return results;
+    }
 
     public static Expression taylorSeries(Expression func, double c, int terms){
         Expression result = new Constant(func.evaluate(c));
