@@ -36,4 +36,18 @@ public class VectorField {
     public double objDivAt(Map<String, Double> point){
         return objDiv().evaluate(point);
     }
+
+    public Expression objCurl2d(String[] vars, String Comp1, String Comp2){
+
+        if (vars.length != 2) throw new IllegalArgumentException("Must be 2d");
+        Expression x = Parser.parse(Comp1);
+        Expression y = Parser.parse(Comp2);
+        if (vars.length != 2) throw new IllegalArgumentException("Components and variables do not match."); 
+
+        return y.sPartialDerivative(vars[0]).subtract(x.sPartialDerivative(vars[1]));
+    }
+
+    public double objCurl2dAt(String[] vars, String xComp, String yComp, Map<String, Double> point ){
+        return curl2d(vars, xComp, yComp).evaluate(point);
+    }
 }

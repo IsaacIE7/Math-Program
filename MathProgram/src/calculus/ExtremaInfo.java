@@ -29,7 +29,9 @@ public class ExtremaInfo {
         return x;
     }
 
-    
+    public String toString(){
+        return "" + type  + " at (" + x + "," + val + ")";
+    }
 
     
 
