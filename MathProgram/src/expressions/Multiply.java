@@ -62,6 +62,14 @@ public class Multiply implements Expression{
         if (sLeft.toString().equals(sRight.toString())){
             return new Power(sLeft, 2);
         }
+
+        if (sLeft instanceof Constant c1 && sRight instanceof Multiply m && m.getLeft() instanceof Constant c2) {
+            return new Multiply(new Constant(c1.getValue() * c2.getValue()), m.getRight()).simplify();
+        }
+
+        if (sLeft instanceof Multiply m && m.getLeft() instanceof Constant c1 && sRight instanceof Constant c2) {
+            return new Multiply(new Constant(c1.getValue() * c2.getValue()), m.getRight()).simplify();
+        }
         
         
         return new Multiply(sLeft, sRight);
@@ -82,10 +90,10 @@ public class Multiply implements Expression{
             return "" + right.toString() + left.toString();
         }
         if (left instanceof Constant c && right instanceof Multiply m && m.getLeft() instanceof Constant c2){
-            return "" + (c.getValue() * c2.getValue()) + m.getRight().toString();
+            return "" + (new Constant(c.getValue() * c2.getValue()).toString()) +  "(" + m.getRight().toString() + ")";
         }
         if (left instanceof Multiply m && m.getLeft() instanceof Constant c && right instanceof Constant c2){
-            return "" + (c.getValue() * c2.getValue()) + m.getRight().toString();
+            return "" + (new Constant(c.getValue() * c2.getValue()).toString()) +  "(" + m.getRight().toString() + ")";
         }
         if (left instanceof Constant c && right instanceof Power p && p.getBase() instanceof Variable){
             

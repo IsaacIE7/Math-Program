@@ -35,12 +35,14 @@ public class Calc {
     } 
 
     public static ArrayList<Double> findCriticalPoints(String func, double lower, double upper) {
-        String fp = Parser.parse(func).sDerivative().toString();
+        String fp = Parser.parse(func).sDerivative().simplify().toString();
+        System.out.println(fp);
         return rootFinder(fp, lower, upper, 150);
     }
 
     public static ArrayList<Double> findInflectionPoints(String func, double lower, double upper) {
-        String fpp = Parser.parse(func).sDerivative().sDerivative().toString();
+        String fpp = Parser.parse(func).sDerivative().sDerivative().simplify().toString();
+        System.out.println(fpp);
         return rootFinder(fpp, lower, upper, 150);
     }
 
@@ -72,7 +74,8 @@ public class Calc {
 
             if (fppBefore * fppAfter < 0) { // check if opposite signs
                 results.add(new ExtremaInfo(p, f.evaluate(p), ExtremaInfo.Crit.INF));
-}
+                System.out.println("    -> ADDED as inflection point");
+            } 
         }
         return results;
     }
