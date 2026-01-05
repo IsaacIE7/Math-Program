@@ -6,8 +6,9 @@ public class Constant implements Expression {
     private final double value; 
 
     public Constant(double val){
-        value = val;
+        value = (val == 0.0) ? 0.0 : val;
     }
+    
     public double getValue() {return value;}
 
     @Override

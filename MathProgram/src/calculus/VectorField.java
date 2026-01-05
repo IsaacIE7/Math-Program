@@ -1,6 +1,7 @@
 package calculus;
 
 import expressions.*;
+import java.util.ArrayList;
 import java.util.Map;
 import utils.*;
 
@@ -48,6 +49,39 @@ public class VectorField {
     }
 
     public double objCurl2dAt(String[] vars, String xComp, String yComp, Map<String, Double> point ){
-        return curl2d(vars, xComp, yComp).evaluate(point);
+        return objCurl2d(vars, xComp, yComp).evaluate(point);
+    }
+
+    public VectorField curl(String[] vars, String... comps){
+        if (vars.length != 3 || comps.length != 3) throw new IllegalArgumentException("Must be 3d."); 
+
+        ArrayList<Expression> vf = new ArrayList<Expression>();
+        String[] compStrings = new String[3];
+
+        for (String s : comps) {
+            vf.add(Parser.parse(s));
+        }
+
+        Expression curlX = vf.get(2).sPartialDerivative(vars[1]).subtract(vf.get(1).sPartialDerivative(vars[2]));
+        Expression curlY = vf.get(0).sPartialDerivative(vars[2]).subtract(vf.get(2).sPartialDerivative(vars[0]));
+        Expression curlZ = vf.get(1).sPartialDerivative(vars[0]).subtract(vf.get(0).sPartialDerivative(vars[1]));
+
+        compStrings[0] = curlX.simplify().simplify().toString();
+        compStrings[1] = curlY.simplify().simplify().toString();
+        compStrings[2] = curlZ.simplify().simplify().toString();
+
+        return new VectorField(compStrings, vars);        
+    }
+
+    public VectorField curlAt(String[] vars, Map<String, Double> point, String... comps){
+        VectorField curlField = curl(vars, comps);
+        String[] curlComps = curlField.getComps();
+        String[] res = new String[3];
+
+        for (int i = 0; i < curlComps.length; i++) {
+            res[i] = "" + Parser.parse(curlComps[i]).evaluate(point);
+        }
+
+        return new VectorField(res, vars);
     }
 }

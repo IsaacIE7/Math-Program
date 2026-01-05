@@ -1,6 +1,8 @@
 import calculus.*;
 import expressions.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import utils.*;
 
@@ -10,6 +12,56 @@ public class Main {
     private static String currentExprString = "";
 
     public static void main(String[] args) {
+        System.out.println("=".repeat(60));
+System.out.println("3D CURL TEST - 5 Questions");
+System.out.println("=".repeat(60));
+
+String[] vars = {"x", "y", "z"};
+
+// Test 1: Zero curl (conservative field)
+System.out.println("\nTest 1: F = (y, x, 0) - Should have zero curl");
+VectorField vf1 = new VectorField(new String[]{"y", "x", "0"}, vars);
+VectorField curl1 = vf1.curl(vars, "y", "x", "0");
+System.out.println("Curl = (" + curl1.getComps()[0] + ", " + 
+                  curl1.getComps()[1] + ", " + curl1.getComps()[2] + ")");
+System.out.println("Expected: (0.0, 0.0, 0.0)");
+
+// Test 2: Constant curl
+System.out.println("\nTest 2: F = (y, -x, 0) - Rotation around z-axis");
+VectorField vf2 = new VectorField(new String[]{"y", "-x", "0"}, vars);
+VectorField curl2 = vf2.curl(vars, "y", "-x", "0");
+System.out.println("Curl = (" + curl2.getComps()[0] + ", " + 
+                  curl2.getComps()[1] + ", " + curl2.getComps()[2] + ")");
+System.out.println("Expected: (0.0, 0.0, -2.0)");
+
+// Test 3: Simple z-component curl
+System.out.println("\nTest 3: F = (0, 0, x) - Should have curl in y direction");
+VectorField vf3 = new VectorField(new String[]{"0", "0", "x"}, vars);
+VectorField curl3 = vf3.curl(vars, "0", "0", "x");
+System.out.println("Curl = (" + curl3.getComps()[0] + ", " + 
+                  curl3.getComps()[1] + ", " + curl3.getComps()[2] + ")");
+System.out.println("Expected: (0.0, 1.0, 0.0)");
+
+// Test 4: All components non-zero
+System.out.println("\nTest 4: F = (z, x, y)");
+VectorField vf4 = new VectorField(new String[]{"z", "x", "y"}, vars);
+VectorField curl4 = vf4.curl(vars, "z", "x", "y");
+System.out.println("Curl = (" + curl4.getComps()[0] + ", " + 
+                  curl4.getComps()[1] + ", " + curl4.getComps()[2] + ")");
+System.out.println("Expected: (1.0, 1.0, 1.0)");
+
+// Test 5: Evaluate curl at a point
+System.out.println("\nTest 5: F = (y, -x, 0) evaluated at (1, 2, 3)");
+Map<String, Double> point = new HashMap<>();
+point.put("x", 1.0);
+point.put("y", 2.0);
+point.put("z", 3.0);
+VectorField curl5 = vf2.curlAt(vars, point, "y", "-x", "0");
+System.out.println("Curl at (1,2,3) = (" + curl5.getComps()[0] + ", " + 
+                  curl5.getComps()[1] + ", " + curl5.getComps()[2] + ")");
+System.out.println("Expected: (0.0, 0.0, -2.0)");
+
+System.out.println("\n" + "=".repeat(60));
         
     
 
